@@ -19,10 +19,10 @@ from solid.utils import *
 
 SEGMENTS = 400
 
-cell_x = 60
+cell_x = 40
 cell_y = cell_x / 2
 num_x = 4
-num_y = 25
+num_y = 20
 
 
 @bom_part("Piece", 0.20, currency="€", link="http://example.net", leftover=10)
@@ -75,6 +75,8 @@ def finalize():
 
 
 if __name__ == '__main__':
+    assert num_y >= 1 and num_x >= 1 and cell_x > 0
+
     out_dir = sys.argv[1] if len(sys.argv) > 1 else os.curdir
     filename_wo_ext = os.path.splitext(sys.argv[0])[0]
     file_out = os.path.join(out_dir, '{}.scad'.format(filename_wo_ext))
