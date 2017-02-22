@@ -19,9 +19,9 @@ from solid.utils import *
 
 SEGMENTS = 400
 
-cell_x = 40
+cell_x = 30
 cell_y = cell_x / 2
-num_x = 4
+num_x = 2
 num_y = 20
 
 
@@ -56,7 +56,9 @@ def multiply_cell():
 def add_taper(obj):
     vec = [[-cell_x / 2, -cell_y * 1 / 4],
            [cell_x * (num_x - 0.5), -cell_y * 1 / 4],
-           [cell_x * (num_x - 1) / 2, -cell_x * (num_x - 0.5)]]
+           [cell_x * (num_x - 1) / 2 + 2, -cell_x * (num_x - 0.5)],
+           [cell_x * (num_x - 1) / 2 - 2, -cell_x * (num_x - 0.5)]
+           ]
     tap1 = polygon(vec)
     tap2 = translate([0, (num_y - 1) * cell_y, 0])(mirror([0, 1, 0])(tap1))
     return obj + tap1 + tap2
