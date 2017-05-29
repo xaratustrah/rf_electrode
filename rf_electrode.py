@@ -17,12 +17,15 @@ Xaratustra
 import os
 from solid.utils import *
 
-SEGMENTS = 400
+SEGMENTS = 30
 
-cell_x = 30
+# all values in mm
+cell_x = 20
 cell_y = cell_x / 2
-num_x = 2
-num_y = 20
+num_x = 4
+num_y = 30
+feed_thickness = 2
+feed_length = 2
 
 
 @bom_part("Piece", 0.20, currency="€", link="http://example.net", leftover=10)
@@ -30,7 +33,7 @@ def cell():
     slot_size = cell_y / 3
 
     a = square([cell_x, cell_y], center=True)
-    c1 = circle(slot_size / 2)
+    c1 = circle(slot_size / 2, segments=SEGMENTS)
     c2 = square([cell_x / 2, slot_size], center=True)
     hole = c2 + right(cell_x / 4)(c1) + left(cell_x / 4)(c1)
     a = a - hole \
@@ -56,8 +59,10 @@ def multiply_cell():
 def add_taper(obj):
     vec = [[-cell_x / 2, -cell_y * 1 / 4],
            [cell_x * (num_x - 0.5), -cell_y * 1 / 4],
-           [cell_x * (num_x - 1) / 2 + 2, -cell_x * (num_x - 0.5)],
-           [cell_x * (num_x - 1) / 2 - 2, -cell_x * (num_x - 0.5)]
+           [cell_x * (num_x - 1) / 2 + feed_thickness / 2, -cell_x * (num_x - 0.5)],
+           [cell_x * (num_x - 1) / 2 + feed_thickness / 2, -cell_x * (num_x - 0.5) - feed_length],
+           [cell_x * (num_x - 1) / 2 - feed_thickness / 2, -cell_x * (num_x - 0.5) - feed_length],
+           [cell_x * (num_x - 1) / 2 - feed_thickness / 2, -cell_x * (num_x - 0.5)],
            ]
     tap1 = polygon(vec)
     tap2 = translate([0, (num_y - 1) * cell_y, 0])(mirror([0, 1, 0])(tap1))
@@ -71,8 +76,9 @@ def assembly():
 
 def finalize():
     a = assembly()
-    a = linear_extrude(height=1, center=True)(a)
-    a = color(Oak)(a)
+    # extrude?
+    # a = linear_extrude(height=0.5, center=False)(a)
+    # a = color(Birch)(translate([0, 0, 1])(a))
     return a
 
 

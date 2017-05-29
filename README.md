@@ -11,6 +11,10 @@ directly to to your favourite electromagnetic calculator. The second possibility
 
 I have tested both methods and finally imported them into [CST Studio Suite<sup>&reg;</sup>](https://www.cst.com/). The import handles both STL and STEP very well, whereas the curves are much better represented in case of STEP file import.
 
+Here is a view of the resulting electrode:
 
 ![rf_electrode](https://raw.githubusercontent.com/xaratustrah/rf_electrode/master/rf_electrode.png)
 
+Here is a view of the fabricated electrode!
+
+![rf_electrode_fab](https://raw.githubusercontent.com/xaratustrah/rf_electrode/master/rf_electrode_fab.jpg)
